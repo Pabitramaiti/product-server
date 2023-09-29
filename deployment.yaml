@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-server-deployment
+  #namespace: eks-sample-app
+  labels:
+    app: product-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product-server
+  template:
+    metadata:
+      name: product-server
+      labels:
+        app: product-server
+    spec:
+      containers:
+      - name: product-server-deployment
+        image: pabitramaiti/product-server
+        resources:
+          requests:
+            cpu: "100m"
+            memory: 256Mi
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080

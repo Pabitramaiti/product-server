@@ -1,0 +1,82 @@
+To Build with help of Dockerfile
+================================
+docker build -t product-server:latest .
+
+To Run Application with help of Dockerfile
+==========================================
+docker run message-server
+OR//
+docker run -p8082:8080 product-server:latest
+OR//
+docker run --name container-product-server  -p8082:8080 product-server:latest
+
+Here 8082 is local port, and 8080 is port in Docker container. Default is 8080:8080
+
+Endpoint URL:- http://localhost:8082/products
+
+$> docker inspect product-server
+$> docker stop container-product-server
+$> docker rm product-server
+$> docker start container-product-server
+
+==========================================================
+https://www.youtube.com/watch?v=7o7e8OAAWyg
+https://www.youtube.com/watch?v=SzbeDqBSRkc
+https://www.youtube.com/results?search_query=spring+boot+docker+kubernetes+aws
+
+docker build -t pabitramaiti/product-server .
+docker tag product-server pabitramaiti/product-server
+docker push pabitramaiti/product-server
+docker rmi product-server pabitramaiti/product-server
+docker run -p 8080:8080 pabitramaiti/product-server
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+kubectl get service // svc
+minikube start
+node ip + nodeport
+OR//
+minikube ip
+kubectl get nodes -o wide
+minikube dashboard
+
+
+docker build -t pabitramaiti/product-server:latest .
+docker tag product-server pabitramaiti/product-server
+docker push pabitramaiti/product-server:latest
+docker rmi product-server pabitramaiti/product-server
+docker run -p 8080:8080 pabitramaiti/product-server
+
+
+kubectl apply -f product-deployment-service.yaml
+
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+
+kubectl delete -f deployment.yaml
+kubectl delete -f service.yaml
+
+kubectl describe pod [name]
+kubectl rollout restart deployment product-server-deployment
+kubectl rollout status deployment product-server-deployment
+kubectl rollout undo deploy/product-server-deployment
+kubectl scale --replicas=1 deploy product-server-deployment
+kubectl get deploy
+kubectl get rs
+kubectl logs -f [podName]
+kubectl exec [podName] -- cat /etc/os-release
+
+docker build -t pabitramaiti/productcatalogue:latest .
+docker push pabitramaiti/productcatalogue:latest
+
+docker build -t pabitramaiti/shopfront:latest .
+docker push pabitramaiti/shopfront:latest
+
+kubectl apply -f productcatalogue-service.yaml
+kubectl apply -f stockmanager-service.yaml
+kubectl apply -f shopfront-service.yaml
+
+kubectl delete -f productcatalogue-service.yaml
+kubectl delete -f stockmanager-service.yaml
+kubectl delete -f shopfront-service.yaml
+
+docker buildx build --platform linux/amd64,linux/arm64 -t pabitramaiti/product-server --push .
