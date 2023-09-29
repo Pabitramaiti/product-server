@@ -12,12 +12,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: azure/docker-login@v1
-        with:
-           login-server: knowledgefactory.azurecr.io
-           username: Knowledgefactory
-           password: PkblkahIhqxu7l41jNGCL2B4anTlDvxS1bwH18YhGr+ACRBJCHhj
-      - run: |
-          docker build . -t knowledgefactory.azurecr.io/knowledgefactory:${{ github.sha }}
-          docker push knowledgefactory.azurecr.io/knowledgefactory:${{ github.sha }}
+    - uses: actions/checkout@v2
+    - uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.ACR_ENDPOINT }}
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+    - run: |
+        docker build . -t ${{ secrets.ACR_ENDPOINT }}/knowledgefactory:${{ github.sha }}
+        docker push ${{ secrets.ACR_ENDPOINT }}/knowledgefactory:${{ github.sha }}
