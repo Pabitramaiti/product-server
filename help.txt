@@ -12,7 +12,7 @@ docker run --name container-product-server  -p8082:8080 product-server:latest
 
 Here 8082 is local port, and 8080 is port in Docker container. Default is 8080:8080
 
-Endpoint URL:- http://localhost:8082/products
+Endpoint URL:- http://localhost:8080/products
 
 $> docker inspect product-server
 $> docker stop container-product-server
@@ -80,3 +80,38 @@ kubectl delete -f stockmanager-service.yaml
 kubectl delete -f shopfront-service.yaml
 
 docker buildx build --platform linux/amd64,linux/arm64 -t pabitramaiti/product-server --push .
+
+
+=============Working Scripts==============
+https://minikube.sigs.k8s.io/docs/start/
+kubectl create deployment product-server-deployment --image=pabitramaiti/product-server
+kubectl expose deployment product-server-deployment --type=NodePort --port=8080
+   kubectl get services product-server-deployment
+minikube service product-server-deployment	//Using this script it will generate auto port number (System generated) and will be redirected to http://127.0.0.1:56946/products or http://localhost:56946/products (Means service is accessible from local system)
+kubectl port-forward service/product-server-deployment 8080:8080	//Using this script it will not generate any auto port number and will not redirecte to endpoint. But can be accessible using  http://localhost:8080/products --> Working
+
+--Delete deployment
+kubectl delete deployment product-server-deployment
+==========================================
+
+
+Access service endpoing using kubectl proxy
+
+==================Below all commands is working ===================================
+> kubectl proxy
+> curl http://localhost:8001/api/v1/pods
+OR/ http://localhost:8001/api/v1/pods
+
+> kubectl get pods
+
+> curl http://localhost:8001/api/v1/namespaces/default/pods/product-server-deployment-b84dc96f6-57s98
+OR/ http://localhost:8001/api/v1/namespaces/default/pods/product-server-deployment-b84dc96f6-57s98
+
+> kubectl get svc
+
+http://localhost:8001/api/v1/namespaces/default/services/product-server-deployment
+OR/ > curl -k -X GET http://localhost:8001/api/v1/namespaces/default/services/product-server-deployment
+
+http://localhost:8001/api/v1/namespaces/default/services/product-server-deployment:8080/proxy/products
+OR/ > curl -k -X GET http://localhost:8001/api/v1/namespaces/default/services/product-server-deployment:8080/proxy/products
+===================================================================================

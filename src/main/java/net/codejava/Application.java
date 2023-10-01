@@ -1,14 +1,17 @@
 package net.codejava;
 
-import java.util.Map;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+//import springfox.documentation.swagger2.annotations.EnableSwagger2;
 //@RestController
 @EnableAutoConfiguration
 @SpringBootApplication
+//@EnableSwagger2
+@OpenAPIDefinition (info = @Info (title = "Product API", version = "3", description = "Product api swagger defination"))
 public class Application {
 
 	/*@RequestMapping("/getmessage")

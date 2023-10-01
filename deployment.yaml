@@ -2,27 +2,28 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: product-server-deployment
-  #namespace: eks-sample-app
+  #namespace: default
   labels:
-    app: product-server
+    app: product-server-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: product-server
+      app: product-server-deployment
   template:
     metadata:
-      name: product-server
+      creationTimestamp: null
+      name: product-server-deployment
       labels:
-        app: product-server
+        app: product-server-deployment
     spec:
       containers:
-      - name: product-server-deployment
-        image: pabitramaiti/product-server
-        resources:
-          requests:
-            cpu: "100m"
-            memory: 256Mi
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8080
+        - name: product-server
+          image: pabitramaiti/product-server
+          resources:
+            requests:
+              cpu: "100m"
+              memory: 256Mi
+          imagePullPolicy: Always #IfNotPresent
+          ports:
+          - containerPort: 8080

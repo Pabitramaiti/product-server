@@ -2,15 +2,15 @@ apiVersion: v1  #Kubernets API version
 kind: Service   #Kubernets resource kind we are creating
 metadata:       #Metadata of resource kind we are creating
   name: product-server-deployment
-  #namespace: product-server-app
+  #namespace: default
   labels:
-    app: product-server
+    app: product-server-deployment
 spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080  #The port that the service is running on in the cluster
+      targetPort: 8080 # The port exposed by the service
   type: NodePort
   selector:
-    app: product-server
-  ports:
-  - protocol: TCP
-    port: 8080  #The port that the service is running on in the cluster
-    name: http
-    targetPort: 8080  # The port exposed by the service
+    app: product-server-deployment
