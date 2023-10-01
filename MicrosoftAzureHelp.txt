@@ -1,0 +1,6 @@
+Registry name - Knowledgefactory
+Login server - knowledgefactory.azurecr.io
+Username- Knowledgefactory
+Password - PkblkahIhqxu7l41jNGCL2B4anTlDvxS1bwH18YhGr+ACRBJCHhj
+Password2 - wDxqq80fHL9yy1esWWJJ/DLMQR9zlx4pjb3PPbLGSw+ACRDcfTPj
+
